@@ -7,9 +7,9 @@ interface Idata {
 
 function Item({ data }: { data: Idata }) {
   return (
-    <div>
-      <div>{data.date}e</div>
-      <div>{data.fileName}</div>
+    <div className="border border-solid border-white p-2 pl-8 pr-8 rounded-lg">
+      <div className="p-2">{data.date}e</div>
+      <div className="p-2">{data.fileName}</div>
     </div>
   );
 }

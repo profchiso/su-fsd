@@ -14,7 +14,7 @@ const Dropdown = () => {
           htmlFor="dropdown"
           className="block text-sm font-medium text-gray-700"
         >
-          Select an option:
+          Filter
         </label>
       </div>
 
