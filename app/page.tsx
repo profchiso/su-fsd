@@ -6,23 +6,48 @@ import Item, { IData } from "@/components/Item";
 import Dropdown from "@/components/Dropdown";
 
 const API_URL = "https://su-fsd-api.onrender.com/api/data";
+function extractNumericValue(fileName: string) {
+  const numericMatch = fileName.match(/\d+/);
+  return numericMatch ? parseInt(numericMatch[0], 10) : null;
+}
 
 const Home: NextPage = () => {
   const [items, setItems] = useState<IData[]>([]);
 
   const handleSort = (sortBy: string) => {
     if (sortBy === "createdAscendent") {
-      console.log(items);
       let sortedByDate = items.sort((a, b) =>
         moment(a.date, "YYYY-MM-DD HH:mm").diff(
           moment(b.date, "YYYY-MM-DD HH:mm")
         )
       );
-      console.log(sortedByDate);
 
       setItems(sortedByDate);
     } else if (sortBy === "filenameAscendent") {
+      const ascSortedData = [...items].sort((a, b) => {
+        const numericA = extractNumericValue(a.fileName);
+        const numericB = extractNumericValue(b.fileName);
+
+        if (numericA !== null && numericB !== null) {
+          return numericA - numericB;
+        } else {
+          return a.fileName.localeCompare(b.fileName);
+        }
+      });
+
+      setItems(ascSortedData);
     } else if (sortBy === "filenameDescendent") {
+      const descSortedData = [...items].sort((a, b) => {
+        const numericA = extractNumericValue(a.fileName);
+        const numericB = extractNumericValue(b.fileName);
+
+        if (numericA !== null && numericB !== null) {
+          return numericB - numericA;
+        } else {
+          return b.fileName.localeCompare(a.fileName);
+        }
+      });
+      setItems(descSortedData);
     }
   };
 
