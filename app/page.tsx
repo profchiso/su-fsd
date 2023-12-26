@@ -7,21 +7,25 @@ import Dropdown from "@/components/Dropdown";
 const API_URL = "https://su-fsd-api.onrender.com/api/data";
 
 const Home: NextPage = () => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<IData[]>([]);
+
+  const handleSort = (sortBy: string) => {
+    console.log(sortBy);
+  };
+
   useEffect(() => {
     const getItems = async () => {
       const fetchItems = await fetch(API_URL);
       const itemsAsJson = await fetchItems.json();
-      console.log(itemsAsJson);
       setItems(itemsAsJson);
     };
     getItems();
-  }, [items]);
+  }, []);
 
   return (
     <>
       <div className="flex items-center justify-center  w-screen mt-8">
-        <Dropdown />
+        <Dropdown handleSort={handleSort} />
       </div>
       <div className="flex items-center justify-center  w-screen mt-8">
         <div className="grid grid-cols-2 gap-8">
