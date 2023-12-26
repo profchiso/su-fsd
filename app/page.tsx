@@ -1,5 +1,4 @@
 "use client";
-
 import { NextPage } from "next";
 import { useState, useEffect } from "react";
 import Item from "@/components/Item";
@@ -18,10 +17,9 @@ const Home: NextPage = () => {
     const getItems = async () => {
       const fetchItems = await fetch("http://localhost:5000/api/items");
       const itemsAsJson = await fetchItems.json();
-
-      return itemsAsJson;
+      setItems(itemsAsJson);
     };
-    getItems().then((items) => setItems(items));
+    getItems();
   }, [items]);
 
   return (
