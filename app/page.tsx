@@ -1,6 +1,7 @@
 "use client";
 import { NextPage } from "next";
 import { useState, useEffect } from "react";
+const moment = require("moment");
 import Item, { IData } from "@/components/Item";
 import Dropdown from "@/components/Dropdown";
 
@@ -10,7 +11,19 @@ const Home: NextPage = () => {
   const [items, setItems] = useState<IData[]>([]);
 
   const handleSort = (sortBy: string) => {
-    console.log(sortBy);
+    if (sortBy === "createdAscendent") {
+      console.log(items);
+      let sortedByDate = items.sort((a, b) =>
+        moment(a.date, "YYYY-MM-DD HH:mm").diff(
+          moment(b.date, "YYYY-MM-DD HH:mm")
+        )
+      );
+      console.log(sortedByDate);
+
+      setItems(sortedByDate);
+    } else if (sortBy === "filenameAscendent") {
+    } else if (sortBy === "filenameDescendent") {
+    }
   };
 
   useEffect(() => {
